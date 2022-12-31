@@ -212,12 +212,73 @@ void searchByAuthor()
 
 void lendBook()
 {
-    cout<<"lend book page"<<endl;
+    cout<<"lend book page"<<endl<<endl;
+
+    bool found= false;
+    cout<<"enter the book title you want to lend"<<endl;
+    cin>>titleGV;
+
+      current=tail->next;
+    do
+    {
+        if(titleGV.compare(current->title) ==0) //check if the wanted book is in the list
+        {
+            found= true;
+            if(current->availableCopies > 0)    //if the book is available on the shelf/ if no of copies is greater than zero
+            {
+                current->availableCopies --;
+                cout<<"success, "<<current->availableCopies<<" copies of "<<current->title <<" book are left on the shelf" ;
+            }
+            else
+            {
+                cout<<"sorry, this book is not available";
+            }
+
+        }
+
+
+        current=current->next;
+    }
+    while(current!=tail->next);
+
+    if(found==false)
+    {
+         cout<<"Sorry, no matches found! check your spelling and try again"<<endl;
+    }
+
+    displayMenu();
+
 }
 
 void returnBook()
 {
-    cout<<"return book page"<<endl;
+    cout<<"return book page"<<endl<<endl;
+
+    bool found= false;
+    cout<<"enter the book title you want to return"<<endl;
+    cin>>titleGV;
+
+     current=tail->next;
+    do
+    {
+        if(titleGV.compare(current->title) ==0)
+        {
+            found= true;
+
+            current->availableCopies ++;
+            cout<<"success, "<<current->availableCopies<<" copies of "<<current->title << " book are left on the shelf";
+            current=current->next;
+        }
+    }
+
+    while(current!=tail->next);
+
+    if(found==false)
+    {
+         cout<<"Sorry, no matches found! check your spelling and try again"<<endl;
+    }
+
+    displayMenu();
 }
 
 void displayMenu()
