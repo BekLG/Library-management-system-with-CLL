@@ -57,9 +57,7 @@ void registerBook()
 	    cout<<"Enter location/ shelf number Of The Book: ";
 	    cin>>shelfNumberGV;
 
-
-	     cin.ignore();
-
+        cin.ignore();
 
 	    temp->title=titleGV;
 	    temp->author=authorGV;
@@ -126,34 +124,91 @@ void displayAllBooks()
 
     displayMenu();
 }
-
-
 void displayByGenre()
 {
 
     cout<<"enter the genre you want to display"<<endl;
     cin>>genreGV;
-    cout<<"display book page  "<<genreGV;
+
+      current=tail->next;
+    do
+    {
+        if(genreGV.compare(current->genre) ==0)
+        {
+            cout<<current->title<<" "<<current->author<<" "<<current->genre<<" "<<current->numberOfPages<<" "<<current->publicationYear<<" "<<current->availableCopies<<" "<<current->shelfNumber<<endl;
+        }
+
+
+        current=current->next;
+    }
+    while(current!=tail->next);
+
+    displayMenu();
 }
 
 
 void searchByTitle()
 {
-    string title;
+    bool found= false;
     cout<<"enter the book title you want to search"<<endl;
-    cin>>title;
+    cin>>titleGV;
 
-    cout<<"search book page  "<<title;
+     current=tail->next;
+    do
+    {
+        if(titleGV.compare(current->title) ==0)
+        {
+            found= true;
+            cout<<"found..."<<endl;
+            cout<<current->title<<" "<<current->author<<" "<<current->genre<<" "<<current->numberOfPages<<" "<<current->publicationYear<<" "<<current->availableCopies<<" "<<current->shelfNumber<<endl;
+        }
+
+
+        current=current->next;
+    }
+    while(current!=tail->next);
+
+    if(found==false)
+    {
+         cout<<"Sorry, no matches found! check your spelling and try again"<<endl;
+    }
+
+    displayMenu();
 }
+
+
+
 
 void searchByAuthor()
 {
-    string author;
+    bool found= false;
     cout<<"enter the author name you want to search"<<endl;
-    cin>>author;
+    cin>>authorGV;
 
-    cout<<"search book page  "<<author;
+      current=tail->next;
+    do
+    {
+        if(authorGV.compare(current->author) ==0)
+        {
+            found= true;
+            cout<<current->title<<" "<<current->author<<" "<<current->genre<<" "<<current->numberOfPages<<" "<<current->publicationYear<<" "<<current->availableCopies<<" "<<current->shelfNumber<<endl;
+        }
+
+
+        current=current->next;
+    }
+    while(current!=tail->next);
+
+    if(found==false)
+    {
+         cout<<"Sorry, no matches found! check your spelling and try again"<<endl;
+    }
+
+    displayMenu();
 }
+
+
+
 
 void lendBook()
 {
@@ -167,7 +222,6 @@ void returnBook()
 
 void displayMenu()
 {
-    system("clear");
     int choice;
     cout<<"welcome to library management System"<<endl<<endl;
     cout<<"enter 1 to register new book"<<endl;
@@ -251,7 +305,6 @@ void displayMenu()
         break;
 
     }
-
 }
 
 
