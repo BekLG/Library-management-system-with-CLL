@@ -7,10 +7,8 @@ struct book
     string title;
     string author;
     int numberOfPages;
-  //  string id;
     int publicationYear;
     string genre;
-  //  float price;
     int shelfNumber;
     int availableCopies;
 
@@ -20,7 +18,6 @@ struct book
 book *head,*tail,*temp,*current,*q,*p;  //declaration of necessary pointers
 string titleGV,authorGV,genreGV;        //declaration of global variables
 bool found= false;
-//char nullValue; //to use instead of getch();
 int numberOfPagesGV,publicationYearGV,shelfNumberGV,availableCopiesGV;  // GV means Global Variable
 
 void displayMenu();   //declaration of functions
@@ -32,6 +29,7 @@ void searchByAuthor();
 void lendBook();
 void returnBook();
 void waitAndDisplayMenu();
+void deleteBook();
 
 int main()
 {
@@ -145,7 +143,6 @@ void displayByGenre()
              cout<<setw(5)<<"* "<<setw(25)<<current->title<<" |"<<setw(25)<<current->author<<" |"<<setw(20)<<current->genre<<" |"<<setw(15)<<current->numberOfPages<<" |"<<setw(15)<<current->publicationYear<<" |"<<setw(15)<<current->availableCopies<<" |"<<setw(15)<<current->shelfNumber<<" |" <<endl;
         }
 
-
         current=current->next;
     }
     while(current!=tail->next);
@@ -154,7 +151,6 @@ void displayByGenre()
 
     waitAndDisplayMenu();
 }
-
 
 void searchByTitle()
 {
@@ -177,7 +173,6 @@ void searchByTitle()
              cout<<"====================================================================================================================================================+"<<endl;
 
         }
-
 
         current=current->next;
     }
@@ -210,7 +205,6 @@ void searchByAuthor()
 
              cout<<"====================================================================================================================================================+"<<endl;
         }
-
 
         current=current->next;
     }
@@ -293,6 +287,46 @@ void returnBook()
     waitAndDisplayMenu();
 }
 
+void deleteBook()
+{
+    cout<<"enter the book title you want to delete"<<endl;
+    cin>>titleGV;
+
+    if(head == tail && titleGV.compare(head->title) ==0) // there is only one node
+    {
+        delete head;
+        cout<<"book deleted sucessfully"<<endl;
+    }
+    else    //there are more than 1 nodes, so we have to search and delete
+    {
+        current=tail->next;
+        q=tail;
+        do
+        {
+            if(titleGV.compare(current->title) ==0)
+            {
+                found= true;
+                q->next= current->next;
+                delete current;
+                cout<<"book deleted sucessfully"<<endl;
+
+            }
+        current=current->next;
+        q=q->next;
+    }
+    while(current!=tail->next);
+
+    if(found==false)
+    {
+         cout<<"Sorry, no matches found! check your spelling and try again"<<endl;
+    }
+    }
+
+
+    waitAndDisplayMenu();
+
+}
+
 void displayMenu()
 {
     system("clear");
@@ -303,7 +337,8 @@ void displayMenu()
     cout<<"enter 3 to search book"<<endl;
     cout<<"enter 4 to lend book"<<endl;
     cout<<"enter 5 to return  book"<<endl;
-    cout<<"enter 6 to close application"<<endl;
+    cout<<"enter 6 to delete  book"<<endl;
+    cout<<"enter 7 to close application"<<endl;
 
     cin>>choice;
 
@@ -371,6 +406,10 @@ void displayMenu()
         break;
 
         case 6:
+        deleteBook();
+        break;
+
+        case 7:
         exit(0);
         break;
 
@@ -399,5 +438,3 @@ void waitAndDisplayMenu()
       }
     }
 }
-
-
