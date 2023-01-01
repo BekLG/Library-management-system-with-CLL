@@ -1,4 +1,5 @@
 #include<iostream>
+#include <iomanip>
 using namespace std;
 
 struct book
@@ -18,8 +19,9 @@ struct book
 
 book *head,*tail,*temp,*current,*q,*p;  //declaration of necessary pointers
 string titleGV,authorGV,genreGV;        //declaration of global variables
+bool found= false;
+//char nullValue; //to use instead of getch();
 int numberOfPagesGV,publicationYearGV,shelfNumberGV,availableCopiesGV;  // GV means Global Variable
-
 
 void displayMenu();   //declaration of functions
 void registerBook();
@@ -29,7 +31,7 @@ void searchByTitle();
 void searchByAuthor();
 void lendBook();
 void returnBook();
-
+void waitAndDisplayMenu();
 
 int main()
 {
@@ -67,7 +69,6 @@ void registerBook()
 	    temp->availableCopies=availableCopiesGV;
 	    temp->shelfNumber=shelfNumberGV;
 
-	  // cin>>book_name;
 
     if(tail==NULL){//if the list is empty linked list will instantiated.
                tail=temp;
@@ -94,12 +95,10 @@ void registerBook()
                                     temp->next=head;
                                     tail->next=temp;
                                     tail=temp;
-
                                }
                                if(q->title >= titleGV && res >0){//N_th position
                                     temp->next=q;
                                     current->next=temp;
-
                                }
                        }
                        current=current->next;//traverse to all nodes to compare the string.
@@ -107,7 +106,6 @@ void registerBook()
 		           }while(current!=tail);//till the end of the linked list.
 }
             displayMenu();
-
 }
 
 void displayAllBooks()
@@ -115,14 +113,20 @@ void displayAllBooks()
     cout<<"display book page"<<endl;
 
       current=tail->next;
+      cout<<"====================================================================================================================================================+"<<endl;
+      cout<<setw(5)<<"* "<<setw(25)<<"TITLE"<<" |"<<setw(25)<<"AUTHOR"<<" |"<<setw(20)<<"GENRE"<<" |"<<setw(15)<<"No OF PAGES"<<" |"<<setw(15)<<"PUB-YEAR"<<" |"<<setw(15)<<"AV-COPIES"<<" |"<<setw(15)<<"SHELF-No"<<" |" <<endl;
     do
     {
-        cout<<current->title<<" "<<current->author<<" "<<current->genre<<" "<<current->numberOfPages<<" "<<current->publicationYear<<" "<<current->availableCopies<<" "<<current->shelfNumber<<endl;
+             cout<<"----------------------------------------------------------------------------------------------------------------------------------------------------+"<<endl;
+             cout<<setw(5)<<"* "<<setw(25)<<current->title<<" |"<<setw(25)<<current->author<<" |"<<setw(20)<<current->genre<<" |"<<setw(15)<<current->numberOfPages<<" |"<<setw(15)<<current->publicationYear<<" |"<<setw(15)<<current->availableCopies<<" |"<<setw(15)<<current->shelfNumber<<" |" <<endl;
+
+        //cout<<current->title<<" "<<current->author<<" "<<current->genre<<" "<<current->numberOfPages<<" "<<current->publicationYear<<" "<<current->availableCopies<<" "<<current->shelfNumber<<endl;
         current=current->next;
     }
     while(current!=tail->next);
+      cout<<"====================================================================================================================================================+"<<endl;
 
-    displayMenu();
+    waitAndDisplayMenu();
 }
 void displayByGenre()
 {
@@ -131,25 +135,30 @@ void displayByGenre()
     cin>>genreGV;
 
       current=tail->next;
+             cout<<"====================================================================================================================================================+"<<endl;
+             cout<<setw(5)<<"* "<<setw(25)<<"TITLE"<<" |"<<setw(25)<<"AUTHOR"<<" |"<<setw(20)<<"GENRE"<<" |"<<setw(15)<<"No OF PAGES"<<" |"<<setw(15)<<"PUB-YEAR"<<" |"<<setw(15)<<"AV-COPIES"<<" |"<<setw(15)<<"SHELF-No"<<" |" <<endl;
     do
     {
         if(genreGV.compare(current->genre) ==0)
         {
-            cout<<current->title<<" "<<current->author<<" "<<current->genre<<" "<<current->numberOfPages<<" "<<current->publicationYear<<" "<<current->availableCopies<<" "<<current->shelfNumber<<endl;
+             cout<<"----------------------------------------------------------------------------------------------------------------------------------------------------+"<<endl;
+             cout<<setw(5)<<"* "<<setw(25)<<current->title<<" |"<<setw(25)<<current->author<<" |"<<setw(20)<<current->genre<<" |"<<setw(15)<<current->numberOfPages<<" |"<<setw(15)<<current->publicationYear<<" |"<<setw(15)<<current->availableCopies<<" |"<<setw(15)<<current->shelfNumber<<" |" <<endl;
         }
 
 
         current=current->next;
     }
     while(current!=tail->next);
+            cout<<"====================================================================================================================================================+"<<endl;
 
-    displayMenu();
+
+    waitAndDisplayMenu();
 }
 
 
 void searchByTitle()
 {
-    bool found= false;
+
     cout<<"enter the book title you want to search"<<endl;
     cin>>titleGV;
 
@@ -159,8 +168,14 @@ void searchByTitle()
         if(titleGV.compare(current->title) ==0)
         {
             found= true;
-            cout<<"found..."<<endl;
-            cout<<current->title<<" "<<current->author<<" "<<current->genre<<" "<<current->numberOfPages<<" "<<current->publicationYear<<" "<<current->availableCopies<<" "<<current->shelfNumber<<endl;
+             cout<<"found..."<<endl;
+             cout<<"====================================================================================================================================================+"<<endl;
+             cout<<setw(5)<<"* "<<setw(25)<<"TITLE"<<" |"<<setw(25)<<"AUTHOR"<<" |"<<setw(20)<<"GENRE"<<" |"<<setw(15)<<"No OF PAGES"<<" |"<<setw(15)<<"PUB-YEAR"<<" |"<<setw(15)<<"AV-COPIES"<<" |"<<setw(15)<<"SHELF-No"<<" |" <<endl;
+             cout<<"----------------------------------------------------------------------------------------------------------------------------------------------------+"<<endl;
+             cout<<setw(5)<<"* "<<setw(25)<<current->title<<" |"<<setw(25)<<current->author<<" |"<<setw(20)<<current->genre<<" |"<<setw(15)<<current->numberOfPages<<" |"<<setw(15)<<current->publicationYear<<" |"<<setw(15)<<current->availableCopies<<" |"<<setw(15)<<current->shelfNumber<<" |" <<endl;
+
+             cout<<"====================================================================================================================================================+"<<endl;
+
         }
 
 
@@ -173,15 +188,12 @@ void searchByTitle()
          cout<<"Sorry, no matches found! check your spelling and try again"<<endl;
     }
 
-    displayMenu();
+    waitAndDisplayMenu();
 }
-
-
-
 
 void searchByAuthor()
 {
-    bool found= false;
+
     cout<<"enter the author name you want to search"<<endl;
     cin>>authorGV;
 
@@ -191,7 +203,12 @@ void searchByAuthor()
         if(authorGV.compare(current->author) ==0)
         {
             found= true;
-            cout<<current->title<<" "<<current->author<<" "<<current->genre<<" "<<current->numberOfPages<<" "<<current->publicationYear<<" "<<current->availableCopies<<" "<<current->shelfNumber<<endl;
+             cout<<"====================================================================================================================================================+"<<endl;
+             cout<<setw(5)<<"* "<<setw(25)<<"TITLE"<<" |"<<setw(25)<<"AUTHOR"<<" |"<<setw(20)<<"GENRE"<<" |"<<setw(15)<<"No OF PAGES"<<" |"<<setw(15)<<"PUB-YEAR"<<" |"<<setw(15)<<"AV-COPIES"<<" |"<<setw(15)<<"SHELF-No"<<" |" <<endl;
+             cout<<"----------------------------------------------------------------------------------------------------------------------------------------------------+"<<endl;
+             cout<<setw(5)<<"* "<<setw(25)<<current->title<<" |"<<setw(25)<<current->author<<" |"<<setw(20)<<current->genre<<" |"<<setw(15)<<current->numberOfPages<<" |"<<setw(15)<<current->publicationYear<<" |"<<setw(15)<<current->availableCopies<<" |"<<setw(15)<<current->shelfNumber<<" |" <<endl;
+
+             cout<<"====================================================================================================================================================+"<<endl;
         }
 
 
@@ -204,17 +221,14 @@ void searchByAuthor()
          cout<<"Sorry, no matches found! check your spelling and try again"<<endl;
     }
 
-    displayMenu();
+    waitAndDisplayMenu();
 }
-
-
-
 
 void lendBook()
 {
     cout<<"lend book page"<<endl<<endl;
 
-    bool found= false;
+
     cout<<"enter the book title you want to lend"<<endl;
     cin>>titleGV;
 
@@ -235,8 +249,6 @@ void lendBook()
             }
 
         }
-
-
         current=current->next;
     }
     while(current!=tail->next);
@@ -246,7 +258,7 @@ void lendBook()
          cout<<"Sorry, no matches found! check your spelling and try again"<<endl;
     }
 
-    displayMenu();
+   waitAndDisplayMenu();
 
 }
 
@@ -254,7 +266,7 @@ void returnBook()
 {
     cout<<"return book page"<<endl<<endl;
 
-    bool found= false;
+
     cout<<"enter the book title you want to return"<<endl;
     cin>>titleGV;
 
@@ -265,8 +277,8 @@ void returnBook()
         {
             found= true;
 
-            current->availableCopies ++;
-            cout<<"success, "<<current->availableCopies<<" copies of "<<current->title << " book are left on the shelf";
+            current->availableCopies = current->availableCopies + 1;
+            cout<<"success, "<<current->availableCopies<<" copies of "<<current->title << " book are left on the shelf"<<endl;
             current=current->next;
         }
     }
@@ -278,17 +290,18 @@ void returnBook()
          cout<<"Sorry, no matches found! check your spelling and try again"<<endl;
     }
 
-    displayMenu();
+    waitAndDisplayMenu();
 }
 
 void displayMenu()
 {
+    system("clear");
     int choice;
     cout<<"welcome to library management System"<<endl<<endl;
     cout<<"enter 1 to register new book"<<endl;
     cout<<"enter 2 to display book list"<<endl;
     cout<<"enter 3 to search book"<<endl;
-    cout<<"enter 4 to register lend book"<<endl;
+    cout<<"enter 4 to lend book"<<endl;
     cout<<"enter 5 to return  book"<<endl;
     cout<<"enter 6 to close application"<<endl;
 
@@ -368,5 +381,23 @@ void displayMenu()
     }
 }
 
+void waitAndDisplayMenu()
+{
+    int choice;
+    cout<<"press 1 to continue, other keys to exit"<<endl;
+    while (1)
+    {
+      cin>>choice;
+      if (choice == 1)
+      {
+        displayMenu();
+        break;
+      }
+      else
+      {
+        exit(0);
+      }
+    }
+}
 
 
