@@ -128,7 +128,7 @@ void displayAllBooks()
 }
 void displayByGenre()
 {
-
+    found= false;
     cout<<"enter the genre you want to display"<<endl;
     cin>>genreGV;
 
@@ -139,6 +139,7 @@ void displayByGenre()
     {
         if(genreGV.compare(current->genre) ==0)
         {
+             found=true;
              cout<<"----------------------------------------------------------------------------------------------------------------------------------------------------+"<<endl;
              cout<<setw(5)<<"* "<<setw(25)<<current->title<<" |"<<setw(25)<<current->author<<" |"<<setw(20)<<current->genre<<" |"<<setw(15)<<current->numberOfPages<<" |"<<setw(15)<<current->publicationYear<<" |"<<setw(15)<<current->availableCopies<<" |"<<setw(15)<<current->shelfNumber<<" |" <<endl;
         }
@@ -147,14 +148,16 @@ void displayByGenre()
     }
     while(current!=tail->next);
             cout<<"====================================================================================================================================================+"<<endl;
-
-
+     if(found==false)
+    {
+         cout<<"Sorry, no matches found! check your spelling and try again"<<endl;
+    }
     waitAndDisplayMenu();
 }
 
 void searchByTitle()
 {
-
+    found= false;
     cout<<"enter the book title you want to search"<<endl;
     cin>>titleGV;
 
@@ -188,7 +191,7 @@ void searchByTitle()
 
 void searchByAuthor()
 {
-
+    found= false;
     cout<<"enter the author name you want to search"<<endl;
     cin>>authorGV;
 
@@ -220,6 +223,7 @@ void searchByAuthor()
 
 void lendBook()
 {
+    found= false;
     cout<<"lend book page"<<endl<<endl;
 
 
@@ -235,11 +239,11 @@ void lendBook()
             if(current->availableCopies > 0)    //if the book is available on the shelf/ if no of copies is greater than zero
             {
                 current->availableCopies --;
-                cout<<"success, "<<current->availableCopies<<" copies of "<<current->title <<" book are left on the shelf" ;
+                cout<<"success, "<<current->availableCopies<<" copies of "<<current->title <<" book are left on the shelf"<<endl;
             }
             else
             {
-                cout<<"sorry, this book is not available";
+                cout<<"sorry, this book is not available"<<endl;
             }
 
         }
@@ -258,6 +262,7 @@ void lendBook()
 
 void returnBook()
 {
+    found= false;
     cout<<"return book page"<<endl<<endl;
 
 
@@ -289,6 +294,7 @@ void returnBook()
 
 void deleteBook()
 {
+    found= false;
     cout<<"enter the book title you want to delete"<<endl;
     cin>>titleGV;
 
