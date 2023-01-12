@@ -278,8 +278,9 @@ void returnBook()
 
             current->availableCopies = current->availableCopies + 1;
             cout<<"success, "<<current->availableCopies<<" copies of "<<current->title << " book are left on the shelf"<<endl;
-            current=current->next;
+            break;
         }
+        current=current->next;
     }
 
     while(current!=tail->next);
@@ -326,6 +327,7 @@ void deleteBook()
     {
          cout<<"Sorry, no matches found! check your spelling and try again"<<endl;
     }
+
     }
 
 
@@ -347,6 +349,7 @@ void displayMenu()
     cout<<"enter 7 to close application"<<endl;
 
     cin>>choice;
+
 
     switch (choice){
         case 1:
@@ -425,6 +428,7 @@ void displayMenu()
 
     }
 }
+
 
 void waitAndDisplayMenu()
 {
