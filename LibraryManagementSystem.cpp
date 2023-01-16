@@ -38,10 +38,10 @@ int main()
 
 void registerBook()
 {
-     temp= new book;
+     temp= new book;        // new book variable will be declared and its location will be given to temp pointer
 
     cin.ignore();
-        cout<<"Enter Title Of The Book: ";
+        cout<<"Enter Title Of The Book: ";   //accepting values from the user and assigning on global variables
 	    getline(cin,titleGV);
 	    cout<<"Enter author Of The Book: ";
 	    getline(cin,authorGV);
@@ -59,7 +59,7 @@ void registerBook()
 
         cin.ignore();
 
-	    temp->title=titleGV;
+	    temp->title=titleGV;    // assigning the global variables on the new object by using temp pointer
 	    temp->author=authorGV;
 	    temp->genre=genreGV;
 	    temp->numberOfPages=numberOfPagesGV;
@@ -78,7 +78,7 @@ void registerBook()
                  do{
                         int res=titleGV.compare(current->title);//compare book name string in the new node with the list to get the position, to make the list is sorted by book name.
                         q=current->next;
-                    if(res < 0 && current == head){//at the begining.
+                    if(res < 0 && current == head){//at the begining. O of 1
                           p=head;
                           head=temp;
                           temp->next=p;
@@ -89,12 +89,12 @@ void registerBook()
 
                        else if(res >0){
 
-                               if(current==tail){//At the end.
+                               if(current==tail){//At the end.  O of 1
                                     temp->next=head;
                                     tail->next=temp;
                                     tail=temp;
                                }
-                               if(q->title >= titleGV && res >0){//N_th position
+                               if(q->title >= titleGV && res >0){//N_th position    O of n
                                     temp->next=q;
                                     current->next=temp;
                                }
@@ -118,15 +118,14 @@ void displayAllBooks()
              cout<<"----------------------------------------------------------------------------------------------------------------------------------------------------+"<<endl;
              cout<<setw(5)<<"* "<<setw(25)<<current->title<<" |"<<setw(25)<<current->author<<" |"<<setw(20)<<current->genre<<" |"<<setw(15)<<current->numberOfPages<<" |"<<setw(15)<<current->publicationYear<<" |"<<setw(15)<<current->availableCopies<<" |"<<setw(15)<<current->shelfNumber<<" |" <<endl;
 
-        //cout<<current->title<<" "<<current->author<<" "<<current->genre<<" "<<current->numberOfPages<<" "<<current->publicationYear<<" "<<current->availableCopies<<" "<<current->shelfNumber<<endl;
-        current=current->next;
+        current=current->next;      //traversing all over the list  O of n
     }
     while(current!=tail->next);
       cout<<"====================================================================================================================================================+"<<endl;
 
-    waitAndDisplayMenu();
+    waitAndDisplayMenu();   // to ask the if user wants to continue or not
 }
-void displayByGenre()
+void displayByGenre()   // do display books that have the same genre
 {
     found= false;
     cout<<"enter the genre you want to display"<<endl;
@@ -139,7 +138,7 @@ void displayByGenre()
     {
         if(genreGV.compare(current->genre) ==0)
         {
-             found=true;
+             found=true;    // the gloal variable that have been declared on the top of the code
              cout<<"----------------------------------------------------------------------------------------------------------------------------------------------------+"<<endl;
              cout<<setw(5)<<"* "<<setw(25)<<current->title<<" |"<<setw(25)<<current->author<<" |"<<setw(20)<<current->genre<<" |"<<setw(15)<<current->numberOfPages<<" |"<<setw(15)<<current->publicationYear<<" |"<<setw(15)<<current->availableCopies<<" |"<<setw(15)<<current->shelfNumber<<" |" <<endl;
         }
@@ -155,7 +154,7 @@ void displayByGenre()
     waitAndDisplayMenu();
 }
 
-void searchByTitle()
+void searchByTitle() // to search a book by its title
 {
     found= false;
     cout<<"enter the book title you want to search"<<endl;
@@ -177,7 +176,7 @@ void searchByTitle()
 
         }
 
-        current=current->next;
+        current=current->next; // traverses allover the list O of n
     }
     while(current!=tail->next);
 
@@ -189,7 +188,7 @@ void searchByTitle()
     waitAndDisplayMenu();
 }
 
-void searchByAuthor()
+void searchByAuthor() // to search by author name
 {
     found= false;
     cout<<"enter the author name you want to search"<<endl;
@@ -209,7 +208,7 @@ void searchByAuthor()
              cout<<"====================================================================================================================================================+"<<endl;
         }
 
-        current=current->next;
+        current=current->next; // O of n
     }
     while(current!=tail->next);
 
@@ -221,7 +220,7 @@ void searchByAuthor()
     waitAndDisplayMenu();
 }
 
-void lendBook()
+void lendBook() // to lend a book, searches the book by title and decreases the number of available copies by one
 {
     found= false;
     cout<<"lend book page"<<endl<<endl;
@@ -238,7 +237,7 @@ void lendBook()
             found= true;
             if(current->availableCopies > 0)    //if the book is available on the shelf/ if no of copies is greater than zero
             {
-                current->availableCopies --;
+                current->availableCopies --; // decrement of availabe copies
                 cout<<"success, "<<current->availableCopies<<" copies of "<<current->title <<" book are left on the shelf"<<endl;
             }
             else
@@ -260,7 +259,7 @@ void lendBook()
 
 }
 
-void returnBook()
+void returnBook() // to return book, searches the book and increments the number of available copies by one
 {
     found= false;
     cout<<"return book page"<<endl<<endl;
@@ -276,7 +275,7 @@ void returnBook()
         {
             found= true;
 
-            current->availableCopies = current->availableCopies + 1;
+            current->availableCopies = current->availableCopies + 1; // increment of available copies
             cout<<"success, "<<current->availableCopies<<" copies of "<<current->title << " book are left on the shelf"<<endl;
             break;
         }
@@ -293,7 +292,7 @@ void returnBook()
     waitAndDisplayMenu();
 }
 
-void deleteBook()
+void deleteBook()   // to delete a book
 {
     found= false;
     cout<<"enter the book title you want to delete"<<endl;
@@ -307,39 +306,39 @@ void deleteBook()
     else    //there are more than 1 nodes, so we have to search and delete
     {
         current=tail->next;
-        q=tail;
+        q=tail;     // current is head and q is tail
         do
         {
             if(titleGV.compare(current->title) ==0)
             {
                 found= true;
-                q->next= current->next;
+                q->next= current->next; // q will take the adress of the node, which is next to current
                 delete current;
                 cout<<"book deleted sucessfully"<<endl;
 
             }
         current=current->next;
-        q=q->next;
-    }
-    while(current!=tail->next);
+        q=q->next;  // both q and current will traverse and q will follow current
+        }
+        while(current!=tail->next);
 
-    if(found==false)
-    {
+        if(found==false)
+        {
          cout<<"Sorry, no matches found! check your spelling and try again"<<endl;
+        }
+
+
     }
-
-    }
-
-
     waitAndDisplayMenu();
 
 }
 
-void displayMenu()
+void displayMenu() // to display menu
 {
-    system("clear");
+    system("clear"); // to clear the window   on windows system("cls");
     int choice;
     cout<<"welcome to library management System"<<endl<<endl;
+
     cout<<"enter 1 to register new book"<<endl;
     cout<<"enter 2 to display book list"<<endl;
     cout<<"enter 3 to search book"<<endl;
@@ -434,7 +433,7 @@ void waitAndDisplayMenu()
 {
     int choice;
     cout<<"press 1 to continue, other keys to exit"<<endl;
-    while (1)
+    while (1)       // wait until the user inputs something
     {
       cin>>choice;
       if (choice == 1)
@@ -447,4 +446,5 @@ void waitAndDisplayMenu()
         exit(0);
       }
     }
+
 }
