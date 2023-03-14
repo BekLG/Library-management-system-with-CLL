@@ -1,24 +1,23 @@
-# Library Management System
- C++ Project
+# Library Management System with circular linked list
+
 This is a C++ project for a library management system that allows users to perform various functions such as registering new books, displaying book lists sorted alphabetically or categorized by genre, searching for books by title and author name, lending and returning books, and deleting books. The project is implemented using circular linked list data structure. 
 
 
 # Functionality
+
 This library management system allows users to perform the following functions:
 
-Register a new book with details such as book title, author name, genre, and publication date.
+* Register a new book with details such as book title, author name, genre, and publication date.
 
-Display a list of all books sorted alphabetically or categorized by genre.
+* Display a list of all books sorted alphabetically or categorized by genre.
 
-Search for a book by title or author name.
-Lend a book to a user by updating the book's status.
+* Search for a book by title or author name.
+* Lend a book to a user by updating the book's status.
 
-Return a book by updating the book's status.
-Delete a book from the library.
+* Return a book by updating the book's status.
+* Delete a book from the library.
 
 The system also provides error handling for invalid inputs and displays appropriate messages to the user.
-
-
 
 
 # Data Structure
